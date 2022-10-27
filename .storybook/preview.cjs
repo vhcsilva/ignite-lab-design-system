@@ -3,9 +3,15 @@ import { initialize, mswDecorator } from 'msw-storybook-addon';
 
 import '../src/styles/global.css'
 
+const isProductionEnvironment = process.env.NODE_ENV === "production"
+const serviceWorkerUrl = isProductionEnvironment ? "ignite-lab-design-system/mockServiceWorker.js" : "mockServiceWorker.js"
+
 // Initialize MSW
 initialize({
-  onUnhandledRequest: "bypass"
+  onUnhandledRequest: "bypass",
+  serviceWorker: {
+    url: serviceWorkerUrl
+  }
 });
 
 // Provide the MSW addon decorator globally
